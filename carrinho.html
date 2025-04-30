@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Carrinho de Compras</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;700&family=Rajdhani:wght@600&family=Rammetto+One&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #ffffff;
+      --text: #1e1e1e;
+      --yellow: #ffce28;
+      --dark-red: #c00f0c;
+      --red: #fe0000;
+      --font1: 'Nunito Sans', sans-serif;
+      --font2: 'Rammetto One', cursive;
+      --font3: 'Rajdhani', sans-serif;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: var(--font1);
+      background-color: var(--bg);
+      color: var(--text);
+      padding: 1rem;
+    }
+
+    h1 {
+      font-family: var(--font2);
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .back {
+      margin-bottom: 1rem;
+    }
+
+    .back button {
+      background-color: var(--dark-red);
+      color: #fff;
+      border: none;
+      padding: 0.5rem 1rem;
+      font-weight: bold;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .cart {
+      max-width: 800px;
+      margin: auto;
+    }
+
+    .cart-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #eee;
+      padding: 1rem 0;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .cart-item img {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+
+    .item-info {
+      flex: 1;
+    }
+
+    .item-info h3 {
+      font-family: var(--font3);
+    }
+
+    .item-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .item-actions input {
+      width: 60px;
+      padding: 0.3rem;
+      text-align: center;
+    }
+
+    .item-actions button {
+      background-color: var(--red);
+      color: #fff;
+      border: none;
+      padding: 0.4rem 0.6rem;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .total {
+      text-align: right;
+      margin-top: 1.5rem;
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+
+    .checkout {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 1rem;
+    }
+
+    .checkout button {
+      background-color: var(--yellow);
+      border: none;
+      padding: 0.8rem 1.2rem;
+      font-weight: bold;
+      font-size: 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    @media (max-width: 600px) {
+      .cart-item {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .item-actions {
+        width: 100%;
+        justify-content: space-between;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>Seu Carrinho</h1>
+  <div class="back">
+    <button onclick="window.location.href='./catalogo.html'">← Voltar às compras</button>
+  </div>
+  <div class="cart" id="cartContainer"></div>
+  <div class="total" id="totalPrice">Total: R$ 0,00</div>
+  <div class="checkout">
+    <button onclick="finalizarCompra()">Finalizar Compra</button>
+  </div>
+
+  <script>
+    let cart = JSON.parse(localStorage.getItem('carrinho')) || [];
+
+    function renderCart() {
+      const container = document.getElementById('cartContainer');
+      container.innerHTML = '';
+      let total = 0;
+
+      cart.forEach(item => {
+        total += item.price * item.quantity;
+
+        const div = document.createElement('div');
+        div.className = 'cart-item';
+        div.innerHTML = `
+          <img src="${item.image}" alt="${item.name}" />
+          <div class="item-info">
+            <h3>${item.name}</h3>
+            <p>R$ ${item.price.toFixed(2)}</p>
+          </div>
+          <div class="item-actions">
+            <input type="number" value="${item.quantity}" min="1" onchange="updateQuantity(${item.id}, this.value)" />
+            <button onclick="removeItem(${item.id})">Remover</button>
+          </div>
+        `;
+        container.appendChild(div);
+      });
+
+      document.getElementById('totalPrice').innerText = `Total: R$ ${total.toFixed(2)}`;
+      localStorage.setItem('carrinho', JSON.stringify(cart));
+    }
+
+    function updateQuantity(id, newQty) {
+      const item = cart.find(p => p.id === id);
+      if (item) {
+        item.quantity = parseInt(newQty);
+        renderCart();
+      }
+    }
+
+    function removeItem(id) {
+      cart = cart.filter(item => item.id !== id);
+      renderCart();
+    }
+
+    function finalizarCompra() {
+      alert('Compra finalizada com sucesso!');
+      cart = [];
+      localStorage.removeItem('carrinho');
+      renderCart();
+    }
+
+    renderCart();
+  </script>
+</body>
+</html>

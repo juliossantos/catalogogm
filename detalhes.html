@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pão de Queijo Gostinho Gostoso Premium</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* Font and base styles */
+    body {
+      font-family: 'Poppins', sans-serif;
+    }
+
+    /* Color palette */
+    .section-bg-white { background-color: #FFFFFF; }
+    .section-bg-cream { background-color: #FFF8E7; }
+    .text-dark { color: #333333; }
+    .text-yellow { color: #FFC814; }
+    .bg-yellow { background-color: #FFC814; }
+    .hover\:bg-yellow-dark:hover { background-color: #D4A017; }
+    .hover\:text-yellow:hover { color: #FFC814; }
+
+    /* Wavy section transitions */
+    .curve-top, .curve-bottom {
+      position: absolute;
+      width: 100%;
+      height: 50px;
+      left: 0;
+      z-index: 10;
+      overflow: hidden;
+    }
+    .curve-top { top: -49px; }
+    .curve-bottom { bottom: -49px; }
+    .curve-top svg, .curve-bottom svg {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Hero section overlay */
+    .hero-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0));
+    }
+
+    /* Video player styles */
+    .video-player {
+      position: relative;
+      cursor: pointer;
+      border-radius: 8px;
+      overflow: hidden;
+      transition: transform 0.3s ease;
+    }
+    .video-player:hover {
+      transform: scale(1.02);
+    }
+    .video-player img {
+      display: block;
+      width: 100%;
+    }
+    .video-player .play-icon {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 3rem;
+      color: white;
+      opacity: 0.8;
+      transition: opacity 0.3s ease;
+    }
+    .video-player:hover .play-icon {
+      opacity: 1;
+    }
+
+    /* Product image styles */
+    .product-img {
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease;
+    }
+    .product-img:hover {
+      transform: scale(1.05);
+    }
+
+    /* Fade-in animation for sections */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeIn 0.6s ease-out forwards;
+    }
+    @keyframes fadeIn {
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .fade-in:nth-child(1) { animation-delay: 0.1s; }
+    .fade-in:nth-child(2) { animation-delay: 0.2s; }
+    .fade-in:nth-child(3) { animation-delay: 0.3s; }
+  </style>
+</head>
+<body class="section-bg-cream">
+  <!-- Hero Section -->
+  <section class="relative section-bg-white">
+    <div class="relative">
+      <img src="https://gostinhomineiro.com.br/wp-content/uploads/2022/03/pao-de-queijo-gostinho-mineiro-min-e1648423229647.png" alt="Pão de Queijo" class="w-full h-auto object-cover" style="max-height: 600px;" loading="lazy">
+      <div class="hero-overlay"></div>
+      <div class="absolute inset-0 flex items-center justify-center text-center text-white">
+        <div>
+          <h1 class="text-4xl md:text-5xl font-bold mb-4 fade-in">Pão de Queijo Gostinho Gostoso Premium</h1>
+          <p class="text-lg md:text-xl fade-in">Sabor autêntico de Minas Gerais!</p>
+        </div>
+      </div>
+    </div>
+    </section>
+
+  <!-- Product Details Section -->
+  <section class="relative section-bg-cream py-16">
+
+    <div class="container mx-auto px-6">
+      <div class="flex flex-wrap -mx-4">
+        <div class="w-full md:w-1/2 px-4 mb-8 fade-in">
+          <img src="https://gostinhomineiro.com.br/wp-content/uploads/2022/03/55.png" alt="Product Image 1" class="w-full h-auto mb-4 product-img" loading="lazy">
+          <img src="https://gostinhomineiro.com.br/wp-content/uploads/2022/03/02.png" alt="Product Image 2" class="w-full h-auto product-img" loading="lazy">
+        </div>
+        <div class="w-full md:w-1/2 px-4 flex items-center fade-in">
+          <div>
+            <h2 class="text-3xl font-bold text-dark mb-4">Ingredientes</h2>
+            <p class="text-dark mb-6">
+              Fécula de mandioca, polvilho doce, polvilho azedo, queijo minas, ovos, óleo de soja e sal refinado.<br><br>
+              <strong>ALÉRGICOS:</strong> Contém derivado de leite, ovos, derivado de soja.<br>
+              Contém corante artificial amarelo tartrazina (INS102) e amarelo crepúsculo (INS110).<br><br>
+              Contém lactose.
+            </p>
+            <img src="https://gostinhomineiro.com.br/wp-content/uploads/2022/03/gluten2.png" alt="Gluten Free" class="h-28 mx-auto" loading="lazy">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sizes Section -->
+  <section class="section-bg-white py-16">
+    <div class="container mx-auto px-6">
+      <h2 class="text-3xl font-bold text-center text-dark mb-8 fade-in">Informações Nutricionais</h2>
+      <div class="flex flex-wrap -mx-4">
+        <div class="w-full md:w-1/2 px-4 mb-8 fade-in">
+          <img src="https://gostinhomineiro.com.br/wp-content/uploads/2022/03/tab.png" alt="Sizes Table" class="w-full h-auto product-img" loading="lazy">
+        </div>
+        <div class="w-full md:w-1/2 px-4 fade-in">
+          <img src="https://gostinhomineiro.com.br/wp-content/uploads/2022/03/ystamanhos-1024x554.png" alt="Sizes Image" class="w-full h-auto product-img" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Preparation Section -->
+  <section class="relative section-bg-cream py-16">
+    <div class="container mx-auto px-6">
+      <h2 class="text-3xl font-bold text-center text-dark mb-8 fade-in">Modo de Preparo</h2>
+      <div class="flex flex-wrap -mx-4">
+        <div class="w-full md:w-1/2 px-4 mx-auto">
+          <ol class="list-decimal list-inside text-dark mb-8 fade-in">
+            <li class="mb-3">Pré-aqueça o forno a 200°C ou na posição do médio.</li>
+            <li class="mb-3">Não precisa esperar descongelar, você pode levar o pão de queijo direto ao forno.</li>
+            <li class="mb-3">Coloque os pães de queijo com uma distância de 2cm.</li>
+            <li class="mb-3">Deixe assar por 30 minutos em média.</li>
+          </ol>
+          <div class="video-player fade-in" onclick="this.innerHTML='<iframe class=\'w-full h-64 rounded-lg\' src=\'https://www.youtube.com/embed/KlMNCJ-KtUA?autoplay=1\' frameborder=\'0\' allowfullscreen></iframe>'">
+            <img src="https://gostinhomineiro.com.br/wp-content/uploads/2022/02/8f.png" alt="Video Thumbnail" class="h-64 object-cover">
+            <div class="play-icon">▶</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Conservation Section -->
+  <section class="section-bg-white py-16">
+    <div class="container mx-auto px-6">
+      <h2 class="text-3xl font-bold text-center text-dark mb-8 fade-in">Conservação</h2>
+      <div class="flex flex-wrap -mx-4">
+        <div class="w-full md:w-1/2 px-4 mb-8 fade-in">
+          <img src="https://gostinhomineiro.com.br/wp-content/uploads/2022/03/tabela-1024x880.png" alt="Conservation Table" class="w-full h-auto product-img" loading="lazy">
+        </div>
+        <div class="w-full md:w-1/2 px-4 flex items-center fade-in">
+          <p class="text-dark text-lg">
+            <strong>No freezer (-12ºC ou mais frio)</strong><br>
+            <strong>Congelador (-4ºC)</strong>
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Call-to-Action Section -->
+  <section class="section-bg-cream py-16">
+    <div class="container mx-auto px-6 text-center">
+      <h2 class="text-3xl font-bold text-dark mb-4 fade-in">Pronto para Experimentar?</h2>
+      <p class="text-dark text-lg mb-8 fade-in">Entre em contato agora e leve o sabor mineiro para sua casa!</p>
+      <a href="./catalogo.html" target="_blank" class="inline-block bg-yellow text-white font-bold py-4 px-8 rounded-lg shadow-lg hover:bg-yellow-dark transition duration-300 fade-in">
+        ← voltar para o Cátalogo
+      </a>
+    </div>
+  </section>
+</body>
+</html>

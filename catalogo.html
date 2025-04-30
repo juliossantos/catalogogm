@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Catálogo</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;700&family=Rajdhani:wght@600&family=Rammetto+One&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg: #ffffff;
+      --text: #1e1e1e;
+      --yellow: #ffce28;
+      --dark-red: #c00f0c;
+      --red: #fe0000;
+      --font1: 'Nunito Sans', sans-serif;
+      --font2: 'Rammetto One', cursive;
+      --font3: 'Rajdhani', sans-serif;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: var(--font1);
+      background-color: var(--bg);
+      color: var(--text);
+      padding: 1rem;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+
+    .carrinho{
+        width: 2rem;
+        height: 2rem;
+    }
+
+    h1 {
+      font-family: var(--font2);
+      font-size: 1.6rem;
+      color: var(--dark-red);
+    }
+
+    .cart-icon {
+      position: relative;
+      cursor: pointer;
+    }
+
+    .cart-icon span {
+      position: absolute;
+      top: -10px;
+      right: -10px;
+      background: var(--red);
+      color: #fff;
+      border-radius: 50%;
+      padding: 4px 8px;
+      font-size: 0.8rem;
+    }
+
+    input[type="search"] {
+      width: 100%;
+      padding: 0.6rem;
+      margin-bottom: 1rem;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+
+    .product-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1rem;
+    }
+
+    .product {
+      border: 1px solid #eee;
+      border-radius: 8px;
+      padding: 1rem;
+      text-align: center;
+    }
+
+    .product img {
+      width: 50%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 6px;
+      margin-bottom: 0.5rem;
+    }
+
+    .product h3 {
+      font-family: var(--font3);
+      margin-bottom: 0.5rem;
+    }
+
+    .product p {
+      font-size: 0.9rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .product a {
+        text-decoration: none;
+        color: var(--text);
+    }
+
+    .product .actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .product input {
+      width: 60px;
+      text-align: center;
+    }
+
+
+
+    .product button {
+      background-color: var(--yellow);
+      border: none;
+      padding: 0.5rem;
+      font-weight: bold;
+      cursor: pointer;
+      border-radius: 6px;
+    }
+  </style>
+</head>
+<body>
+    <header>
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <img src="./assets/logo.png" alt="Logo da Empresa" style="height: 40px;" />
+          <h1>Catálogo</h1>
+        </div>
+        <div class="cart-icon" onclick="window.location.href='carrinho.html'">
+          <img src="./assets/carrinho.svg" alt="carrinho" class="carrinho"> 
+          <span id="cartCount">0</span>
+        </div>
+      </header>
+
+  <input type="search" id="search" placeholder="Buscar produto..." oninput="renderProducts()" />
+
+  <div class="product-list" id="productList"></div>
+
+  <script>
+    const produtos = [
+      {
+        id: 10010,
+        name: 'PAO DE QUEIJO PREMIUM 30G PCT 1KG',
+        description: 'Pão de queijo Gostinho Gostoso Premium',
+        price: 23.99,
+        image: './assets/55.png'
+      },
+      {
+        id: 50659,
+        name: 'PAO DE QUEIJO PREMIUM 30G PCT 5KG',
+        description: 'SPão de queijo Gostinho Gostoso Premium',
+        price: 119.95,
+        image: './assets/55.png'
+      },
+      {
+        id: 50653,
+        name: 'PAO DE QUEIJO PREMIUM 70G PCT 5KG',
+        description: 'Pão de queijo Gostinho Gostoso Premium',
+        price: 119.95,
+        image: './assets/55.png'
+      }
+    ];
+
+    let carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
+
+    function renderProducts() {
+      const container = document.getElementById('productList');
+      const searchTerm = document.getElementById('search').value.toLowerCase();
+      container.innerHTML = '';
+
+      produtos.filter(p => p.name.toLowerCase().includes(searchTerm)).forEach(prod => {
+        const div = document.createElement('div');
+        div.className = 'product';
+        div.innerHTML = `
+          <img src="${prod.image}" alt="${prod.name}" />
+          <h3>${prod.name}</h3>
+          <p><a href="./detalhes.html">${prod.description}</a></p>
+          <p><strong>R$ ${prod.price.toFixed(2)}</strong></p>
+          <div class="actions">
+            <input type="number" min="1" value="1" id="qty-${prod.id}" />
+            <button onclick="addToCart(${prod.id})">Adicionar</button>
+          </div>
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    function addToCart(id) {
+      const produto = produtos.find(p => p.id === id);
+      const qtd = parseInt(document.getElementById(`qty-${id}`).value) || 1;
+      const existe = carrinho.find(item => item.id === id);
+
+      if (existe) {
+        existe.quantity += qtd;
+      } else {
+        carrinho.push({
+          id: produto.id,
+          name: produto.name,
+          price: produto.price,
+          image: produto.image,
+          quantity: qtd
+        });
+      }
+
+      localStorage.setItem('carrinho', JSON.stringify(carrinho));
+      updateCartCount();
+      alert('Produto adicionado ao carrinho!');
+    }
+
+    function updateCartCount() {
+      const total = carrinho.reduce((acc, item) => acc + item.quantity, 0);
+      document.getElementById('cartCount').innerText = total;
+    }
+
+    renderProducts();
+    updateCartCount();
+  </script>
+</body>
+</html>
