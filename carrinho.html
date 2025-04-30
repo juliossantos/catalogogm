@@ -144,7 +144,7 @@
   <div class="cart" id="cartContainer"></div>
   <div class="total" id="totalPrice">Total: R$ 0,00</div>
   <div class="checkout">
-    <button onclick="finalizarCompra()">Finalizar Compra</button>
+    <button onclick="FinalizarCompra()">Finalizar Compra</button>
   </div>
 
   <script>
@@ -191,10 +191,30 @@
       renderCart();
     }
 
-    function finalizarCompra() {
-      alert('Compra finalizada com sucesso!');
-      cart = [];
+    function FinalizarCompra() {
+      let carrinho = JSON.parse(localStorage.getItem('carrinho') || '[]');
+
+      let mensagem = ' Olá, segue os itens do *Pedido:*%0A';
+      let total = 0;
+
+      carrinho.forEach(item => {
+        const preco = parseFloat(item.price) || 0;
+        const quantidade = parseInt(item.quantity) || 0;
+        const subtotal = item.price * item.quantity;
+        mensagem += `${item.id} - ${item.name || 'Produto sem nome'} (x${quantidade}): R$ ${subtotal.toFixed(2)}%0A`;
+        total += subtotal;
+      });
+
+      mensagem += `%0A*Total: R$ ${total.toFixed(2)}*`;
+
+      const numeroWhatsApp = '556198059297'; // Substituir
+      const url = `https://wa.me/${numeroWhatsApp}?text=${mensagem}`;
+
+      window.open(url, '_blank');
+
+      // Limpa o carrinho e fecha o modal
       localStorage.removeItem('carrinho');
+
       renderCart();
     }
 
